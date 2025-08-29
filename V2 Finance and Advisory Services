@@ -1,0 +1,217 @@
+import React from "react";
+
+// V2 Finance and Advisory Services
+// Single-file React component (Tailwind CSS assumed)
+// - Exports a default React component that renders a responsive landing page
+// - Includes 3 logo variants as inline SVG components
+// - Contact buttons use tel: and WhatsApp links (India +91)
+// - Sections: Hero, Services, About, Contact, Footer
+// How to use:
+// 1. Create a React app (Vite or Create React App) and install Tailwind CSS.
+// 2. Drop this file into src/ (e.g. src/App.jsx) and import Tailwind.
+// 3. Replace placeholder texts/images with your real content as needed.
+
+// ---------------- Logo SVG Variants ----------------
+const LogoOne = ({ className = "h-12 w-12" }) => (
+  <svg className={className} viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="120" height="120" rx="18" fill="#0F172A" />
+    <g transform="translate(14,18)">
+      <path d="M10 70 L40 10 L70 70 Z" fill="#06B6D4" />
+      <text x="0" y="95" fill="#ffffff" fontSize="14" fontFamily="Inter, Roboto, sans-serif">V2</text>
+    </g>
+  </svg>
+);
+
+const LogoTwo = ({ className = "h-12 w-32" }) => (
+  <svg className={className} viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+    <rect width="300" height="80" rx="14" fill="transparent" />
+    <g transform="translate(12,6)">
+      <circle cx="32" cy="32" r="28" fill="#083344" />
+      <text x="70" y="44" fill="#083344" fontWeight="700" fontSize="28" fontFamily="Inter, Roboto, sans-serif">V2 Finance</text>
+      <text x="70" y="62" fill="#475569" fontSize="12" fontFamily="Inter, Roboto, sans-serif">Advisory Services</text>
+    </g>
+  </svg>
+);
+
+const LogoThree = ({ className = "h-12 w-12" }) => (
+  <svg className={className} viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <rect width="120" height="120" rx="24" fill="#ffffff" stroke="#0F172A" />
+    <g transform="translate(16,18)">
+      <path d="M10 60 Q30 10 60 60" stroke="#ef4444" strokeWidth="6" fill="none" strokeLinecap="round" />
+      <text x="0" y="95" fill="#0F172A" fontSize="12" fontFamily="Inter, Roboto, sans-serif">V2</text>
+    </g>
+  </svg>
+);
+
+// ----------------- Site Data -----------------
+const COMPANY = {
+  name: "V2 Finance and Advisory Services",
+  services: [
+    "Tally work",
+    "Accounting",
+    "ITR",
+    "Business Consulting",
+    "Tax Consulting",
+    "CA Certificate",
+    "All type loan services available",
+  ],
+  contacts: [
+    { name: "Vijay Pal", phone: "8053110931" },
+    { name: "Virender", phone: "9991721466" },
+  ],
+};
+
+// Helpers
+const telLink = (num) => `tel:+91${num}`;
+const waLink = (num) => `https://wa.me/91${num}`;
+
+export default function V2Landing() {
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <header className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <LogoTwo />
+        </div>
+        <nav className="hidden md:flex gap-6 items-center text-sm text-slate-700">
+          <a href="#services" className="hover:underline">
+            Services
+          </a>
+          <a href="#about" className="hover:underline">
+            About
+          </a>
+          <a href="#contact" className="hover:underline">
+            Contact
+          </a>
+          <div className="flex gap-3">
+            {COMPANY.contacts.map((c) => (
+              <div key={c.phone} className="flex items-center gap-2">
+                <a className="text-xs" href={waLink(c.phone)} target="_blank" rel="noreferrer">
+                  WhatsApp
+                </a>
+                <span className="text-xs">|</span>
+                <a className="text-xs" href={telLink(c.phone)}>
+                  {c.phone}
+                </a>
+              </div>
+            ))}
+          </div>
+        </nav>
+        <div className="md:hidden flex items-center gap-2">
+          {COMPANY.contacts.map((c) => (
+            <a key={c.phone} href={waLink(c.phone)} target="_blank" rel="noreferrer" className="text-sm">
+              WhatsApp
+            </a>
+          ))}
+        </div>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-6">
+        <section className="grid md:grid-cols-2 gap-8 items-center py-12">
+          <div>
+            <h1 className="text-4xl font-extrabold leading-tight">
+              {COMPANY.name}
+            </h1>
+            <p className="mt-4 text-lg text-slate-600">
+              Trusted accounting, taxation and loan advisory services. We help small businesses and individuals with practical finance solutions.
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href="#contact" className="inline-flex items-center gap-3 px-4 py-2 bg-amber-500 text-white rounded-md shadow">Contact Us</a>
+              <a href="#services" className="inline-flex items-center gap-3 px-4 py-2 border border-slate-200 rounded-md">Our Services</a>
+            </div>
+
+            <div className="mt-8 text-sm text-slate-700">
+              <strong>Contacts:</strong>
+              <ul className="mt-2">
+                {COMPANY.contacts.map((c) => (
+                  <li key={c.phone} className="flex items-center gap-3">
+                    <span>{c.name}</span>
+                    <a href={telLink(c.phone)} className="underline">{c.phone}</a>
+                    <a href={waLink(c.phone)} target="_blank" rel="noreferrer" className="ml-2 text-xs">WhatsApp</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 shadow-md">
+            <h3 className="text-xl font-semibold">Quick Services</h3>
+            <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {COMPANY.services.map((s) => (
+                <li key={s} className="p-3 border border-slate-100 rounded">{s}</li>
+              ))}
+            </ul>
+            <div className="mt-6 text-sm text-slate-600">
+              Want a custom quote? Call or WhatsApp us and we'll respond within business hours.
+            </div>
+          </div>
+        </section>
+
+        <section id="services" className="py-10">
+          <h2 className="text-2xl font-bold">Services We Offer</h2>
+          <div className="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {COMPANY.services.map((s) => (
+              <div key={s} className="bg-white p-4 rounded-lg shadow-sm">
+                <h4 className="font-semibold">{s}</h4>
+                <p className="mt-2 text-sm text-slate-600">Professional and reliable service for {s.toLowerCase()}.</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="about" className="py-10">
+          <h2 className="text-2xl font-bold">About Us</h2>
+          <p className="mt-4 text-slate-600">V2 Finance and Advisory Services is focused on delivering clear, compliant and practical financial services for small businesses and individuals. Our team provides Tally, accounting, taxation, loan facilitation and CA-certified documents.</p>
+        </section>
+
+        <section id="contact" className="py-10">
+          <h2 className="text-2xl font-bold">Contact</h2>
+          <div className="mt-4 grid sm:grid-cols-2 gap-6">
+            <div className="bg-white p-4 rounded-lg shadow-sm">
+              <h4 className="font-semibold">Reach us by phone / WhatsApp</h4>
+              <ul className="mt-3 text-sm">
+                {COMPANY.contacts.map((c) => (
+                  <li key={c.phone} className="mb-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-medium">{c.name}</div>
+                        <a href={telLink(c.phone)} className="text-slate-600 underline">{c.phone}</a>
+                      </div>
+                      <div className="flex gap-2">
+                        <a href={waLink(c.phone)} target="_blank" rel="noreferrer" className="px-3 py-2 border rounded">WhatsApp</a>
+                        <a href={telLink(c.phone)} className="px-3 py-2 bg-amber-500 text-white rounded">Call</a>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-white p-4 rounded-lg shadow-sm">
+              <h4 className="font-semibold">Send a message</h4>
+              <form action="#" className="mt-3 grid gap-3">
+                <input className="border p-2 rounded" placeholder="Your name" />
+                <input className="border p-2 rounded" placeholder="Phone or email" />
+                <textarea className="border p-2 rounded" placeholder="Tell us about your requirements" rows={4} />
+                <div className="flex gap-3">
+                  <button className="px-4 py-2 bg-amber-500 text-white rounded">Send</button>
+                  <button type="button" className="px-4 py-2 border rounded">Reset</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="mt-12 border-t bg-slate-50 border-slate-200 py-6">
+        <div className="max-w-6xl mx-auto px-6 text-sm text-slate-600 flex flex-col md:flex-row justify-between items-center">
+          <div>© {new Date().getFullYear()} V2 Finance and Advisory Services</div>
+          <div className="flex gap-4 mt-3 md:mt-0">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
